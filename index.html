@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コスモ搬送メンテナンス動画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        /* パスワード画面のスタイル */
+        #passwordScreen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .password-form h2 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .password-form input {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        .password-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .password-form button {
+            padding: 12px;
+            font-size: 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .password-form button:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+        
+        #passwordError {
+            color: #d32f2f;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
+        
+        /* メインコンテンツ画面のスタイル */
+        #mainContent {
+            display: none;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .video-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .video-item:hover {
+            background: #e8e8e8;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .video-info {
+            flex: 1;
+        }
+        
+        .video-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .video-description {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .play-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+        
+        .play-button:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+        
+        .play-button:active {
+            transform: scale(0.95);
+        }
+        
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 5px;
+            color: #2e7d32;
+            text-align: center;
+            display: none;
+            font-weight: bold;
+        }
+        
+        /* モバイル対応 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+            
+            .video-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .play-button {
+                width: 100%;
+                margin-left: 0;
+                padding: 12px;
+                font-size: 16px;
+            }
+            
+            .video-title {
+                font-size: 14px;
+            }
+            
+            .video-description {
+                font-size: 11px;
+            }
+            
+            .password-form {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- パスワード入力画面 -->
+        <div id="passwordScreen">
+            <form class="password-form" onsubmit="checkPassword(event)">
+                <h2>🔐 パスワード入力</h2>
+                <input 
+                    type="password" 
+                    id="passwordInput" 
+                    placeholder="パスワードを入力してください"
+                    autocomplete="off"
+                >
+                <button type="submit">ログイン</button>
+            </form>
+            <div id="passwordError">パスワードが間違っています</div>
+        </div>
+        
+        <!-- メインコンテンツ画面 -->
+        <div id="mainContent">
+            <h1>🎬 コスモ搬送メンテナンス動画</h1>
+            
+            <div class="video-list">
+                <div class="video-item">
+                    <div class="video-info">
+                        <div class="video-title">カバーAの取り外し</div>
+                        <div class="video-description">YouTube - メンテナンス</div>
+                    </div>
+                    <button class="play-button" onclick="playVideo('https://youtu.be/T17WFL7ervM')">再生</button>
+                </div>
+                
+                <div class="video-item">
+                    <div class="video-info">
+                        <div class="video-title">カバーAの取り付け</div>
+                        <div class="video-description">YouTube - メンテナンス</div>
+                    </div>
+                    <button class="play-button" onclick="playVideo('https://youtu.be/gIsv5ZmqsfI')">再生</button>
+                </div>
+                
+                <div class="video-item">
+                    <div class="video-info">
+                        <div class="video-title">スペシャルサンプル</div>
+                        <div class="video-description">YouTube - メンテナンス㊙</div>
+                    </div>
+                    <button class="play-button" onclick="playVideo('https://www.youtube.com/watch?v=9bZkp7q19f0')">再生</button>
+                </div>
+            </div>
+            
+            <div class="message" id="message">動画が開きました</div>
+        </div>
+    </div>
+    
+    <script>
+        const CORRECT_PASSWORD = '0123';
+        
+        function checkPassword(event) {
+            event.preventDefault();
+            
+            const input = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('passwordError');
+            
+            if (input === CORRECT_PASSWORD) {
+                // パスワード正解
+                document.getElementById('passwordScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                errorMsg.style.display = 'none';
+            } else {
+                // パスワード間違い
+                errorMsg.style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+        
+        function playVideo(videoUrl) {
+            // YouTubeの短縮URLを埋め込み形式に変換
+            let embedUrl = videoUrl;
+            
+            // youtu.be形式の場合
+            if (videoUrl.includes('youtu.be/')) {
+                const videoId = videoUrl.split('youtu.be/')[1].split('?')[0];
+                embedUrl = 'https://www.youtube.com/embed/' + videoId;
+            }
+            // watch形式の場合
+            else if (videoUrl.includes('watch?v=')) {
+                const videoId = videoUrl.split('watch?v=')[1].split('&')[0];
+                embedUrl = 'https://www.youtube.com/embed/' + videoId;
+            }
+            
+            // 新しいウィンドウで開く
+            window.open(videoUrl, '_blank');
+            
+            // メッセージ表示
+            const message = document.getElementById('message');
+            message.style.display = 'block';
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+        
+        // ページロード時に再度パスワード入力欄にフォーカス
+        window.addEventListener('load', () => {
+            document.getElementById('passwordInput').focus();
+        });
+    </script>
+</body>
+</html>
