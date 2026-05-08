@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>コスモ搬送メンテナンス動画</title>
     <style>
         * {
@@ -10,312 +10,762 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --bg1: #eef7ff;
+            --bg2: #f8fbff;
+            --bg3: #e9f4ff;
+            --card: rgba(255, 255, 255, 0.92);
+            --card-strong: #ffffff;
+            --line: #d8e8f7;
+            --text: #1f2d3d;
+            --subtext: #5f7388;
+            --primary: #2e8fff;
+            --primary-dark: #1f73d6;
+            --accent: #45c4a0;
+            --danger: #e05858;
+            --shadow: 0 12px 32px rgba(46, 143, 255, 0.12);
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(46, 143, 255, 0.12), transparent 28%),
+                radial-gradient(circle at 85% 80%, rgba(69, 196, 160, 0.12), transparent 30%),
+                linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            color: var(--text);
             padding: 20px;
         }
-        
+
+        .page-wrap {
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
         .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
+            background: var(--card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
         }
-        
-        /* パスワード画面のスタイル */
-        #passwordScreen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-        
-        .password-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            max-width: 300px;
-        }
-        
-        .password-form h2 {
+
+        .header {
+            padding: 36px 28px 28px;
+            background: linear-gradient(135deg, #ffffff 0%, #f3f9ff 100%);
+            border-bottom: 1px solid var(--line);
             text-align: center;
-            color: #333;
-            font-size: 24px;
         }
-        
-        .password-form input {
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-            letter-spacing: 2px;
+
+        .logo {
+            font-size: clamp(34px, 5vw, 52px);
+            margin-bottom: 12px;
         }
-        
-        .password-form input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        .password-form button {
-            padding: 12px;
-            font-size: 16px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .password-form button:hover {
-            background: #5568d3;
-            transform: scale(1.05);
-        }
-        
-        #passwordError {
-            color: #d32f2f;
-            text-align: center;
-            display: none;
-            font-weight: bold;
-        }
-        
-        /* メインコンテンツ画面のスタイル */
-        #mainContent {
-            display: none;
-        }
-        
+
         h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 28px;
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--primary-dark);
+            line-height: 1.3;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
         }
-        
-        .video-list {
+
+        .subtitle {
+            color: var(--subtext);
+            font-size: 14px;
+            letter-spacing: 0.08em;
+        }
+
+        .content {
+            padding: 24px 28px 32px;
+        }
+
+        .tab-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
         }
-        
-        .video-item {
+
+        .tab-button {
+            border: 1px solid #cfe2f4;
+            background: #f8fbff;
+            color: #4c6884;
+            padding: 14px 18px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-button:hover {
+            background: #eef6ff;
+            border-color: #b9d8f6;
+            transform: translateY(-1px);
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, #69b3ff 100%);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 10px 24px rgba(46, 143, 255, 0.22);
+        }
+
+        .tab-button.locked .tab-status {
+            color: #ffbf47;
+            font-weight: 800;
+        }
+
+        .tab-button.active .tab-status {
+            color: #fff;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-head {
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .section-desc {
+            color: var(--subtext);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .video-list,
+        .download-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .video-item,
+        .download-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px;
-            background: #f5f5f5;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            gap: 18px;
+            padding: 18px;
+            background: var(--card-strong);
+            border: 1px solid #e3eef9;
+            border-radius: 18px;
+            transition: 0.25s ease;
+            box-shadow: 0 6px 18px rgba(31, 115, 214, 0.05);
         }
-        
-        .video-item:hover {
-            background: #e8e8e8;
-            border-color: #667eea;
-            transform: translateX(5px);
+
+        .video-item:hover,
+        .download-item:hover {
+            transform: translateY(-2px);
+            border-color: #bfdcf8;
+            box-shadow: 0 12px 28px rgba(31, 115, 214, 0.10);
         }
-        
-        .video-info {
+
+        .video-info,
+        .download-info {
             flex: 1;
+            min-width: 0;
         }
-        
-        .video-title {
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 16px;
+
+        .video-top,
+        .download-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
         }
-        
-        .video-description {
+
+        .video-index {
+            min-width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-size: 12px;
-            color: #666;
+            font-weight: 800;
         }
-        
-        .play-button {
-            background: #667eea;
-            color: white;
+
+        .video-title,
+        .download-name {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .video-description,
+        .download-meta {
+            color: var(--subtext);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .play-button,
+        .download-button,
+        .modal-button {
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
+            border-radius: 12px;
+            padding: 12px 18px;
             font-size: 14px;
-            transition: all 0.3s ease;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.25s ease;
             white-space: nowrap;
-            margin-left: 15px;
         }
-        
-        .play-button:hover {
-            background: #5568d3;
-            transform: scale(1.05);
+
+        .play-button,
+        .download-button,
+        .modal-button.primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #63b0ff 100%);
+            color: #fff;
+            box-shadow: 0 10px 22px rgba(46, 143, 255, 0.20);
         }
-        
-        .play-button:active {
-            transform: scale(0.95);
+
+        .play-button:hover,
+        .download-button:hover,
+        .modal-button.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(46, 143, 255, 0.28);
         }
-        
+
+        .modal-button.secondary {
+            background: #eef5fb;
+            color: #49627c;
+        }
+
+        .note-box {
+            margin-top: 18px;
+            padding: 16px 18px;
+            border-radius: 16px;
+            background: #f5faff;
+            border: 1px solid #dcecf9;
+            color: var(--subtext);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
         .message {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e8f5e9;
-            border-radius: 5px;
-            color: #2e7d32;
+            position: fixed;
+            left: 50%;
+            bottom: 24px;
+            transform: translateX(-50%);
+            min-width: min(92vw, 480px);
+            max-width: 92vw;
+            padding: 14px 18px;
+            border-radius: 14px;
+            background: rgba(31, 45, 61, 0.92);
+            color: #fff;
             text-align: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
             display: none;
-            font-weight: bold;
+            z-index: 1001;
+            line-height: 1.6;
         }
-        
-        /* モバイル対応 */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px;
+
+        .message.show {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        /* Password Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(24, 43, 68, 0.42);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 28px 24px;
+            box-shadow: 0 24px 60px rgba(15, 56, 105, 0.18);
+            border: 1px solid #e2eef9;
+        }
+
+        .modal-icon {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            color: var(--primary-dark);
+            text-align: center;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .modal-desc {
+            text-align: center;
+            color: var(--subtext);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .password-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .password-form input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #cfe2f4;
+            border-radius: 14px;
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 0.2em;
+            background: #f8fbff;
+            color: var(--text);
+        }
+
+        .password-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(46, 143, 255, 0.12);
+        }
+
+        .password-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .password-error {
+            display: none;
+            color: var(--danger);
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .locked-preview {
+            padding: 26px 18px;
+            border-radius: 18px;
+            border: 1px dashed #bfd7ed;
+            background: linear-gradient(135deg, #fafdff 0%, #f2f9ff 100%);
+            text-align: center;
+            color: var(--subtext);
+        }
+
+        .locked-preview strong {
+            display: block;
+            color: var(--primary-dark);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 14px;
             }
-            
-            h1 {
-                font-size: 22px;
-                margin-bottom: 20px;
+
+            .header {
+                padding: 28px 18px 22px;
             }
-            
-            .video-item {
+
+            .content {
+                padding: 18px 16px 24px;
+            }
+
+            .video-item,
+            .download-item {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+                align-items: stretch;
             }
-            
-            .play-button {
+
+            .play-button,
+            .download-button {
                 width: 100%;
-                margin-left: 0;
-                padding: 12px;
+            }
+
+            .tab-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .password-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .video-title,
+            .download-name {
                 font-size: 16px;
             }
-            
-            .video-title {
-                font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                border-radius: 18px;
             }
-            
-            .video-description {
-                font-size: 11px;
+
+            .modal {
+                padding: 22px 18px;
+                border-radius: 18px;
             }
-            
-            .password-form {
-                max-width: 100%;
+
+            .password-form input {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- パスワード入力画面 -->
-        <div id="passwordScreen">
-            <form class="password-form" onsubmit="checkPassword(event)">
-                <h2>🔐 パスワード入力</h2>
-                <input 
-                    type="password" 
-                    id="passwordInput" 
-                    placeholder="パスワードを入力してください"
-                    autocomplete="off"
-                >
-                <button type="submit">ログイン</button>
-            </form>
-            <div id="passwordError">パスワードが間違っています</div>
-        </div>
-        
-        <!-- メインコンテンツ画面 -->
-        <div id="mainContent">
-            <h1>🎬 コスモ搬送メンテナンス動画</h1>
-            
-            <div class="video-list">
-                <div class="video-item">
-                    <div class="video-info">
-                        <div class="video-title">カバーAの取り外し</div>
-                        <div class="video-description">YouTube - メンテナンス</div>
-                    </div>
-                    <button class="play-button" onclick="playVideo('https://youtu.be/T17WFL7ervM')">再生</button>
+    <div class="page-wrap">
+        <div class="container">
+            <div class="header">
+                <div class="logo">▶ ⬢</div>
+                <h1>コスモ・イーシー搬送</h1>
+                <div class="subtitle">動画ライブラリシステム</div>
+            </div>
+
+            <div class="content">
+                <div class="tab-container">
+                    <button class="tab-button locked" data-tab="maintenance" onclick="switchTab('maintenance', event)">
+                        ⚙ メンテナンス動画 <span class="tab-status">🔒</span>
+                    </button>
+
+                    <button class="tab-button active" data-tab="introduction" onclick="switchTab('introduction', event)">
+                        ℹ 製品紹介動画
+                    </button>
+
+                    <button class="tab-button" data-tab="downloads" onclick="switchTab('downloads', event)">
+                        📄 ツール
+                    </button>
                 </div>
-                
-                <div class="video-item">
-                    <div class="video-info">
-                        <div class="video-title">カバーAの取り付け</div>
-                        <div class="video-description">YouTube - メンテナンス</div>
+
+                <div id="maintenance" class="tab-content">
+                    <div class="section-head">
+                        <div class="section-title">メンテナンス動画</div>
+                        <div class="section-desc">
+                            搬送装置の保守・分解・再組付けに関する動画一覧です。
+                        </div>
                     </div>
-                    <button class="play-button" onclick="playVideo('https://youtu.be/gIsv5ZmqsfI')">再生</button>
+
+                    <div class="video-list">
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">01</div>
+                                    <div class="video-title">カバーAの取り外し</div>
+                                </div>
+                                <div class="video-description">YouTube · メンテナンスプロトコル</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/T17WFL7ervM')">▶ 再生</button>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">02</div>
+                                    <div class="video-title">カバーAの取り付け</div>
+                                </div>
+                                <div class="video-description">YouTube · メンテナンスプロトコル</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/gIsv5ZmqsfI')">▶ 再生</button>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">03</div>
+                                    <div class="video-title">旧スペシャルサンプル</div>
+                                </div>
+                                <div class="video-description">YouTube · アドバンスプロトコル ㊙</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/zaxENPKPQaw')">▶ 再生</button>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">04</div>
+                                    <div class="video-title">メンテナンス</div>
+                                </div>
+                                <div class="video-description">YouTube · アドバンスプロトコル ㊙</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/zaxENPKPQaw')">▶ 再生</button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="video-item">
-                    <div class="video-info">
-                        <div class="video-title">搬送プロモーション</div>
-                        <div class="video-description">YouTube - 坂田さんスペシャルサンプル</div>
+
+                <div id="introduction" class="tab-content active">
+                    <div class="section-head">
+                        <div class="section-title">製品紹介動画</div>
+                        <div class="section-desc">
+                            製品概要や導入イメージを確認できる紹介動画です。
+                        </div>
                     </div>
-                    <button class="play-button" onclick="playVideo('https://youtu.be/zaxENPKPQaw')">再生</button>
+
+                    <div class="video-list">
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">01</div>
+                                    <div class="video-title">Frect搬送システム紹介サンプル</div>
+                                </div>
+                                <div class="video-description">YouTube · 製品紹介</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/44VDGA0ATPA')">▶ 再生</button>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">02</div>
+                                    <div class="video-title">SF3搬送システム紹介</div>
+                                </div>
+                                <div class="video-description">YouTube · 製品紹介</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/9bZkp7q19f0')">▶ 再生</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="downloads" class="tab-content">
+                    <div class="section-head">
+                        <div class="section-title">ツール</div>
+                        <div class="section-desc">
+                            取り扱い説明書や技術資料をダウンロードできます。
+                        </div>
+                    </div>
+
+                    <div class="download-list">
+                        <div class="download-item">
+                            <div class="download-info">
+                                <div class="download-top">
+                                    <div class="download-name">コスモ搬送 操作マニュアル</div>
+                                </div>
+                                <div class="download-meta">PDF · Google Drive</div>
+                            </div>
+                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', 'コスモ搬送_操作マニュアル.pdf')">⬇ ダウンロード</button>
+                        </div>
+
+                        <div class="download-item">
+                            <div class="download-info">
+                                <div class="download-top">
+                                    <div class="download-name">メンテナンス完全ガイド</div>
+                                </div>
+                                <div class="download-meta">PDF · Google Drive</div>
+                            </div>
+                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', 'メンテナンス完全ガイド.pdf')">⬇ ダウンロード</button>
+                        </div>
+
+                        <div class="download-item">
+                            <div class="download-info">
+                                <div class="download-top">
+                                    <div class="download-name">トラブルシューティング</div>
+                                </div>
+                                <div class="download-meta">PDF · Google Drive</div>
+                            </div>
+                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', 'トラブルシューティング.pdf')">⬇ ダウンロード</button>
+                        </div>
+
+                        <div class="download-item">
+                            <div class="download-info">
+                                <div class="download-top">
+                                    <div class="download-name">仕様書・技術資料</div>
+                                </div>
+                                <div class="download-meta">PDF · Google Drive</div>
+                            </div>
+                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', '仕様書・技術資料.pdf')">⬇ ダウンロード</button>
+                        </div>
+                    </div>
+
+                    <div class="note-box">
+                        <strong>ℹ 情報：</strong>
+                        PDFファイルはGoogle Driveから配信しています。複数のPDFを追加したい場合は、
+                        Google Driveに別ファイルを保存し、そのファイルIDに差し替えてボタンを追加してください。
+                    </div>
                 </div>
             </div>
-            
-            <div class="message" id="message">動画が開きました</div>
         </div>
     </div>
-    
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal">
+            <div class="modal-icon">🔐</div>
+            <div class="modal-title">メンテナンス動画へのアクセス</div>
+            <div class="modal-desc">
+                メンテナンス動画を表示するには、パスワードを入力してください。
+            </div>
+
+            <form class="password-form" onsubmit="checkPassword(event)">
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="パスワードを入力"
+                    autocomplete="off"
+                />
+                <div class="password-error" id="passwordError">✗ パスワードが間違っています</div>
+
+                <div class="password-actions">
+                    <button type="button" class="modal-button secondary" onclick="closePasswordModal()">キャンセル</button>
+                    <button type="submit" class="modal-button primary">ログイン</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="message" id="message"></div>
+
     <script>
-        const CORRECT_PASSWORD = '0123';
-        
+        const CORRECT_PASSWORD = "0123";
+        let isMaintenanceUnlocked = false;
+        let pendingTab = null;
+        let messageTimer = null;
+
+        function setActiveTab(tabName) {
+            document.querySelectorAll(".tab-content").forEach((content) => {
+                content.classList.remove("active");
+            });
+
+            document.querySelectorAll(".tab-button").forEach((button) => {
+                button.classList.remove("active");
+            });
+
+            const targetContent = document.getElementById(tabName);
+            const targetButton = document.querySelector(`.tab-button[data-tab="${tabName}"]`);
+
+            if (targetContent) targetContent.classList.add("active");
+            if (targetButton) targetButton.classList.add("active");
+        }
+
+        function switchTab(tabName, event) {
+            if (tabName === "maintenance" && !isMaintenanceUnlocked) {
+                pendingTab = "maintenance";
+                openPasswordModal();
+                return;
+            }
+
+            setActiveTab(tabName);
+        }
+
+        function openPasswordModal() {
+            document.getElementById("passwordModal").classList.add("show");
+            document.getElementById("passwordError").style.display = "none";
+            document.getElementById("passwordInput").value = "";
+
+            setTimeout(() => {
+                document.getElementById("passwordInput").focus();
+            }, 80);
+        }
+
+        function closePasswordModal() {
+            document.getElementById("passwordModal").classList.remove("show");
+            document.getElementById("passwordError").style.display = "none";
+            document.getElementById("passwordInput").value = "";
+            pendingTab = null;
+        }
+
         function checkPassword(event) {
             event.preventDefault();
-            
-            const input = document.getElementById('passwordInput').value;
-            const errorMsg = document.getElementById('passwordError');
-            
+
+            const input = document.getElementById("passwordInput").value;
+            const errorMsg = document.getElementById("passwordError");
+
             if (input === CORRECT_PASSWORD) {
-                // パスワード正解
-                document.getElementById('passwordScreen').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-                errorMsg.style.display = 'none';
+                isMaintenanceUnlocked = true;
+                document.getElementById("passwordModal").classList.remove("show");
+                errorMsg.style.display = "none";
+
+                const maintenanceButton = document.querySelector('.tab-button[data-tab="maintenance"]');
+                maintenanceButton.classList.remove("locked");
+                const status = maintenanceButton.querySelector(".tab-status");
+                if (status) status.textContent = "✓";
+
+                setActiveTab(pendingTab || "maintenance");
+                pendingTab = null;
+                showMessage("✓ メンテナンス動画にアクセスしました");
             } else {
-                // パスワード間違い
-                errorMsg.style.display = 'block';
-                document.getElementById('passwordInput').value = '';
-                document.getElementById('passwordInput').focus();
+                errorMsg.style.display = "block";
+                document.getElementById("passwordInput").value = "";
+                document.getElementById("passwordInput").focus();
             }
         }
-        
+
         function playVideo(videoUrl) {
-            // YouTubeの短縮URLを埋め込み形式に変換
-            let embedUrl = videoUrl;
-            
-            // youtu.be形式の場合
-            if (videoUrl.includes('youtu.be/')) {
-                const videoId = videoUrl.split('youtu.be/')[1].split('?')[0];
-                embedUrl = 'https://www.youtube.com/embed/' + videoId;
-            }
-            // watch形式の場合
-            else if (videoUrl.includes('watch?v=')) {
-                const videoId = videoUrl.split('watch?v=')[1].split('&')[0];
-                embedUrl = 'https://www.youtube.com/embed/' + videoId;
-            }
-            
-            // 新しいウィンドウで開く
-            window.open(videoUrl, '_blank');
-            
-            // メッセージ表示
-            const message = document.getElementById('message');
-            message.style.display = 'block';
-            setTimeout(() => {
-                message.style.display = 'none';
+            window.open(videoUrl, "_blank", "noopener");
+            showMessage("✓ 動画を開きました");
+        }
+
+        function downloadFile(fileId, displayName) {
+            const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+            window.open(downloadUrl, "_blank", "noopener");
+            showMessage(`✓ ${displayName} を開きました`);
+        }
+
+        function showMessage(text) {
+            const message = document.getElementById("message");
+            message.innerHTML = text;
+            message.classList.add("show");
+
+            clearTimeout(messageTimer);
+            messageTimer = setTimeout(() => {
+                message.classList.remove("show");
             }, 3000);
         }
-        
-        // ページロード時に再度パスワード入力欄にフォーカス
-        window.addEventListener('load', () => {
-            document.getElementById('passwordInput').focus();
+
+        window.addEventListener("load", () => {
+            setActiveTab("introduction");
+        });
+
+        window.addEventListener("click", (e) => {
+            const modal = document.getElementById("passwordModal");
+            if (e.target === modal) {
+                closePasswordModal();
+            }
         });
     </script>
 </body>
