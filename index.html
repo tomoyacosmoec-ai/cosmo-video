@@ -475,8 +475,8 @@
                         ⚙ メンテナンス動画 <span class="tab-status">🔒</span>
                     </button>
 
-                    <button class="tab-button active" data-tab="introduction" onclick="switchTab('introduction', event)">
-                        ℹ 製品紹介動画
+                    <button class="tab-button active" data-tab="promotion" onclick="switchTab('promotion', event)">
+                        ℹ 搬送プロモーション動画
                     </button>
 
                     <button class="tab-button" data-tab="downloads" onclick="switchTab('downloads', event)">
@@ -484,9 +484,10 @@
                     </button>
                 </div>
 
+                <!-- メンテナンス動画タブ -->
                 <div id="maintenance" class="tab-content">
                     <div class="section-head">
-                        <div class="section-title">メンテナンス動画</div>
+                        <div class="section-title">コスモ搬送メンテナンス動画</div>
                         <div class="section-desc">
                             搬送装置の保守・分解・再組付けに関する動画一覧です。
                         </div>
@@ -514,34 +515,13 @@
                             </div>
                             <button class="play-button" onclick="playVideo('https://youtu.be/gIsv5ZmqsfI')">▶ 再生</button>
                         </div>
-
-                        <div class="video-item">
-                            <div class="video-info">
-                                <div class="video-top">
-                                    <div class="video-index">03</div>
-                                    <div class="video-title">旧スペシャルサンプル</div>
-                                </div>
-                                <div class="video-description">YouTube · アドバンスプロトコル ㊙</div>
-                            </div>
-                            <button class="play-button" onclick="playVideo('https://youtu.be/zaxENPKPQaw')">▶ 再生</button>
-                        </div>
-
-                        <div class="video-item">
-                            <div class="video-info">
-                                <div class="video-top">
-                                    <div class="video-index">04</div>
-                                    <div class="video-title">メンテナンス</div>
-                                </div>
-                                <div class="video-description">YouTube · アドバンスプロトコル ㊙</div>
-                            </div>
-                            <button class="play-button" onclick="playVideo('https://youtu.be/zaxENPKPQaw')">▶ 再生</button>
-                        </div>
                     </div>
                 </div>
 
-                <div id="introduction" class="tab-content active">
+                <!-- 搬送プロモーション動画タブ -->
+                <div id="promotion" class="tab-content active">
                     <div class="section-head">
-                        <div class="section-title">製品紹介動画</div>
+                        <div class="section-title">搬送プロモーション動画</div>
                         <div class="section-desc">
                             製品概要や導入イメージを確認できる紹介動画です。
                         </div>
@@ -552,6 +532,17 @@
                             <div class="video-info">
                                 <div class="video-top">
                                     <div class="video-index">01</div>
+                                    <div class="video-title">搬送プロモーション</div>
+                                </div>
+                                <div class="video-description">YouTube · 製品紹介</div>
+                            </div>
+                            <button class="play-button" onclick="playVideo('https://youtu.be/zaxENPKPQaw')">▶ 再生</button>
+                        </div>
+
+                        <div class="video-item">
+                            <div class="video-info">
+                                <div class="video-top">
+                                    <div class="video-index">02</div>
                                     <div class="video-title">Frect搬送システム紹介サンプル</div>
                                 </div>
                                 <div class="video-description">YouTube · 製品紹介</div>
@@ -562,7 +553,7 @@
                         <div class="video-item">
                             <div class="video-info">
                                 <div class="video-top">
-                                    <div class="video-index">02</div>
+                                    <div class="video-index">03</div>
                                     <div class="video-title">SF3搬送システム紹介</div>
                                 </div>
                                 <div class="video-description">YouTube · 製品紹介</div>
@@ -572,11 +563,12 @@
                     </div>
                 </div>
 
+                <!-- ツールタブ -->
                 <div id="downloads" class="tab-content">
                     <div class="section-head">
                         <div class="section-title">ツール</div>
                         <div class="section-desc">
-                            取り扱い説明書や技術資料をダウンロードできます。
+                            取り扱い説明書や技術資料をGoogle Driveから確認できます。
                         </div>
                     </div>
 
@@ -588,17 +580,17 @@
                                 </div>
                                 <div class="download-meta">PDF · Google Drive</div>
                             </div>
-                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', 'コスモ搬送_操作マニュアル.pdf')">⬇ ダウンロード</button>
+                            <button class="download-button" onclick="openGoogleDrive()">🔗 Google Driveで開く</button>
                         </div>
 
                         <div class="download-item">
                             <div class="download-info">
                                 <div class="download-top">
-                                    <div class="download-name">メンテナンス完全ガイド</div>
+                                    <div class="download-name">設置・現調ツール</div>
                                 </div>
                                 <div class="download-meta">PDF · Google Drive</div>
                             </div>
-                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', 'メンテナンス完全ガイド.pdf')">⬇ ダウンロード</button>
+                            <button class="download-button" onclick="openGoogleDrive()">🔗 Google Driveで開く</button>
                         </div>
 
                         <div class="download-item">
@@ -608,7 +600,7 @@
                                 </div>
                                 <div class="download-meta">PDF · Google Drive</div>
                             </div>
-                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', 'トラブルシューティング.pdf')">⬇ ダウンロード</button>
+                            <button class="download-button" onclick="openGoogleDrive()">🔗 Google Driveで開く</button>
                         </div>
 
                         <div class="download-item">
@@ -618,14 +610,14 @@
                                 </div>
                                 <div class="download-meta">PDF · Google Drive</div>
                             </div>
-                            <button class="download-button" onclick="downloadFile('1k3aEI3JkV-cBkD6RbotNCxyhKAc1tcq7', '仕様書・技術資料.pdf')">⬇ ダウンロード</button>
+                            <button class="download-button" onclick="openGoogleDrive()">🔗 Google Driveで開く</button>
                         </div>
                     </div>
 
                     <div class="note-box">
                         <strong>ℹ 情報：</strong>
-                        PDFファイルはGoogle Driveから配信しています。複数のPDFを追加したい場合は、
-                        Google Driveに別ファイルを保存し、そのファイルIDに差し替えてボタンを追加してください。
+                        ファイルはGoogle Driveから配信しています。新しいファイルを追加したい場合は、
+                        Google Drive フォルダに保存してください。
                     </div>
                 </div>
             </div>
@@ -662,6 +654,7 @@
 
     <script>
         const CORRECT_PASSWORD = "0123";
+        const GOOGLE_DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1MyFVzlC_DIUvkMFy9ZkX2PZB294nku7z?usp=sharing";
         let isMaintenanceUnlocked = false;
         let pendingTab = null;
         let messageTimer = null;
@@ -740,10 +733,9 @@
             showMessage("✓ 動画を開きました");
         }
 
-        function downloadFile(fileId, displayName) {
-            const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-            window.open(downloadUrl, "_blank", "noopener");
-            showMessage(`✓ ${displayName} を開きました`);
+        function openGoogleDrive() {
+            window.open(GOOGLE_DRIVE_FOLDER_URL, "_blank", "noopener");
+            showMessage("✓ Google Driveフォルダを開きました");
         }
 
         function showMessage(text) {
@@ -758,7 +750,7 @@
         }
 
         window.addEventListener("load", () => {
-            setActiveTab("introduction");
+            setActiveTab("promotion");
         });
 
         window.addEventListener("click", (e) => {
